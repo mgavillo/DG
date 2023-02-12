@@ -71,7 +71,7 @@ function App() {
 
   return (
     <div className="flex flex-row items-center">
-      <div className="App select-none w-[80rem]">
+      <div className="App select-none w-[80rem] min-w-[1280px]">
         <div className="flex flex-row justify-between m-2">
           <div className="flex flex-row items-center [&>*]:hover:cursor-pointer [&>*]:m-1">
             <p
@@ -129,7 +129,7 @@ function App() {
             date.getFullYear() + 4
           }`}</h1>
         )}
-        <div className="flex flex-row w-full text-xs relative">
+        <div className="flex flex-row text-xs relative">
           <>
             {Array.from({ length: timeFrame.nCols[timeSelected] }, (_, i) => (
               <TimeLineDay
@@ -139,7 +139,7 @@ function App() {
               />
             ))}
             {fieldEvents && Object.keys(fieldEvents).map((key) => (
-              <TimelineEvent key={key} data={fieldEvents[key]}/>
+              <TimelineEvent key={key} e={fieldEvents[key]} timeSelected={timeSelected}/>
             ))}
           </>
         </div>
