@@ -71,7 +71,7 @@ function App() {
 
   return (
     <div className="flex flex-row items-center">
-      <div className="App select-none w-[80rem] min-w-[1280px]">
+      <div className="App select-none w-[1280px] min-w-[1280px]">
         <div className="flex flex-row justify-between m-2">
           <div className="flex flex-row items-center [&>*]:hover:cursor-pointer [&>*]:m-1">
             <p

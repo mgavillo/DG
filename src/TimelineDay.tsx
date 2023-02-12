@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { timeFrame, nbMsDay } from "./utils";
 
-type NumberSet = 0 | 1 | 2 | 3 | 4;
-
 interface TimeLineDay {
   dayDifference?: number;
   timeSelected: number;
