@@ -46,7 +46,7 @@ export function NewEvent() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col m-8 [&>*]:mb-6 w-full">
+    <form onSubmit={handleSubmit} className="flex flex-col p-8 [&>*]:mb-6 w-1/5">
       <label className="text-xl">
         <select
           value={selectedType}

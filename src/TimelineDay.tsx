@@ -24,12 +24,12 @@ function TimeLineDay({
   }
   const isToday =
     current.toLocaleDateString() === new Date().toLocaleDateString();
-  const length = (1280 / timeFrame.nCols[timeSelected]).toFixed(2)
+  const length = timeFrame.nCols[timeSelected]
 
   return (
     <div
       className={` ${isToday ? "bg-amber-100" : ""}`}
-      style={{ width: `${length}px` }}
+      style={{ width: `calc(80vw/${length})` }}
     >
       <div
         className={`flex-col w-full border-t-2 ${

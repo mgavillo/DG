@@ -13,7 +13,7 @@ export function TimelineEvent({e, timeSelected}: TimelineEventProps){
     const length = (((1280 / nCols) * eventLength)).toFixed(2)
     
     return(
-        <div className={`absolute rounded-md bg-gradient-to-r from-amber-400 to-amber-500 border-amber-500 top-12 hover:cursor-pointer`} style={{width: `${length}px`}}>
+        <div className={`absolute rounded-md bg-gradient-to-r from-amber-400 to-amber-500 border-amber-500 top-12 hover:cursor-pointer`} style={{width: `calc(${eventLength}*calc(80vw/${nCols}))`}}>
             <div className="text-3xl">{e.type.split(" ")[0]}</div>
         </div>
     )
