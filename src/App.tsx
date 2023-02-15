@@ -8,6 +8,7 @@ import { getDatabase, ref, set, onValue } from "firebase/database";
 import { app } from "./Firebase";
 import { NewEvent } from "./NewEvent";
 import { TimelineEvent } from "./TimelineEvent";
+import { VegaLite, VisualizationSpec } from 'react-vega';
 
 const firebaseApp = app;
 const database = getDatabase();
@@ -69,9 +70,46 @@ function App() {
     setDate(newDate);
   };
 
+  const spec: VisualizationSpec = {
+    width: 400,
+    height: 200,
+    mark: { type: 'bar' },
+    encoding: {
+      x: { field: 'a', type: 'ordinal' },
+      y: { field: 'b', type: 'quantitative' },
+    },
+    data: { name: 'table' }, // note: vega-lite data attribute is a plain object instead of an array
+  }
+  
+  const barData = {
+    table: [
+      { a: 'A', b: 28 },
+      { a: 'B', b: 55 },
+      { a: 'C', b: 43 },
+      { a: 'D', b: 91 },
+      { a: 'E', b: 81 },
+      { a: 'F', b: 53 },
+      { a: 'G', b: 19 },
+      { a: 'H', b: 87 },
+      { a: 'I', b: 52 },
+    ],
+  }
+  
   return (
     <div className="flex flex-row flex-wrap items-center w-screen">
       <div className="App select-none w-4/5">
+        {/* the chart component */}
+        <div className="flex flex-row">
+          <div className="w-1/3">
+            <VegaLite spec={spec} data={barData} />,
+          </div>
+          <div className="w-1/3">
+            <VegaLite spec={spec} data={barData} />,
+          </div>
+          <div className="w-1/3">
+            <VegaLite spec={spec} data={barData} />,
+          </div>
+        </div>
         <div className="flex flex-row justify-between m-2">
           <div className="flex flex-row items-center [&>*]:hover:cursor-pointer [&>*]:m-1">
             <p
