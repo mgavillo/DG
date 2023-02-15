@@ -28,7 +28,7 @@ const getWeek = (date: Date) => {
 function App() {
   const [timeSelected, setTimeSelected] = useState(0);
   const [date, setDate] = useState(new Date());
-  const [fieldEvents, setFieldEvents] = useState();
+  const [fieldEvents, setFieldEvents] = useState<any>();
   useEffect(() => {
     const db = getDatabase();
     const eventsRef = ref(db, "fields/" + 0 + "/Events/");
@@ -37,6 +37,8 @@ function App() {
       setFieldEvents(data);
     });
   }, []);
+
+  useEffect(() => {}, []);
 
   console.log("fieldEvents", fieldEvents);
   const calcFirstDay = (i: number) => {
@@ -129,8 +131,8 @@ function App() {
             date.getFullYear() + 4
           }`}</h1>
         )}
-        <div className="flex flex-row text-xs relative">
-          <>
+        <div className="relative w-full h-fit p-2">
+          <div className="flex flex-row text-xs bottom absolute h-[42rem]">
             {Array.from({ length: timeFrame.nCols[timeSelected] }, (_, i) => (
               <TimeLineDay
                 dayDifference={calcFirstDay(i)}
@@ -138,10 +140,39 @@ function App() {
                 date={date}
               />
             ))}
-            {fieldEvents && Object.keys(fieldEvents).map((key) => (
-              <TimelineEvent key={key} e={fieldEvents[key]} timeSelected={timeSelected}/>
-            ))}
-          </>
+          </div>
+          <div className="absolute w-full h-[39rem] mt-12 pt-4 pb-4 overflow-scroll" style={{overflow: "scroll"}}>
+            <div
+              className={`grid w-full  h-fit ${
+                timeFrame.nCols[timeSelected] > 31 ? "gap-y-1" : "gap-y-2"
+              }`}
+              style={{
+                gridTemplateColumns: `repeat(${timeFrame.nCols[timeSelected]}, 1fr)`,
+                // gridAutoRows: "40px",
+                gridAutoFlow: "column",
+              }}
+            >
+              {fieldEvents &&
+                Object.keys(fieldEvents).map((key) => {
+                  const start = fieldEvents[key].startDate;
+                  const end = fieldEvents[key].endDate;
+
+                  console.log(start, end, date.getTime());
+                  if (
+                    start > date.getTime() - nbMsDay * 6 &&
+                    end < date.getTime() + nbMsDay * 6
+                  )
+                    return (
+                      <TimelineEvent
+                        key={key}
+                        e={fieldEvents[key]}
+                        timeSelected={timeSelected}
+                        date={date}
+                      />
+                    );
+                })}
+            </div>
+          </div>
         </div>
       </div>
       <NewEvent />

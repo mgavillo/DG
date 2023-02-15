@@ -47,10 +47,11 @@ export function NewEvent() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col p-8 [&>*]:mb-6 w-1/5">
-      <label className="text-xl">
         <select
           value={selectedType}
           onChange={(event) => setSelectedType(event.target.value)}
+          className={"text-xl rounded-md p-3"}
+        //   readOnly={true}
         >
           {types.map((type) => (
             <option key={type} value={type}>
@@ -58,23 +59,24 @@ export function NewEvent() {
             </option>
           ))}
         </select>
-      </label>
 
       <textarea
         className="w-full h-56 p-3 focus:border-amber-500"
         value={description}
         onChange={(event) => setDescription(event.target.value)}
         placeholder="Description"
+        readOnly={true}
       />
       <div className="flex flex-row">
-        <label className="flex flex-col">
+        <label className="flex flex-col w-fit">
           Start Date
           <input
             className="mr-2"
             type="date"
             value={startDate.toISOString().substr(0, 10)}
             onChange={(event) => setStartDate(new Date(event.target.value))}
-          />
+
+/>
         </label>
         <label
           className={`flex flex-col justify-start ml-3 ${
