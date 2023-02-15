@@ -46,7 +46,7 @@ export function NewEvent() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col p-8 [&>*]:mb-6 w-1/5">
+    <form onSubmit={handleSubmit} className="flex flex-col p-8 [&>*]:mb-6 w-1/5 min-w-[18rem]">
         <select
           value={selectedType}
           onChange={(event) => setSelectedType(event.target.value)}
