@@ -36,10 +36,8 @@ export function TimelineEvent({ e, timeSelected, date }: TimelineEventProps) {
     let end = Math.round(
       (newEnd.getTime() - firstDate.getTime() + nbMsDay) / nbMsDay
     );
-    console.log(start, end);
 
     if ((start < 1 && end < 2) || (start > nCols && end > nCols)) {
-      console.log("OUT");
       setOut(true);
       return;
     }
@@ -53,12 +51,12 @@ export function TimelineEvent({ e, timeSelected, date }: TimelineEventProps) {
     }
     setCroped(newCrop);
     setCol({ start: start, end: end });
-  }, [timeSelected, date, e]);
+  }, [timeSelected, date, e, nCols]);
 
   if (out) return <div></div>;
   // console.log(timeFrame.nCols[timeSelected]*eventLength)
   // const width = `calc(calc(80rem/${nCols})*${eventLength}+calc(calc(2px*${eventLength})+1px))`
-  const length = ((1280 / nCols) * eventLength).toFixed(2);
+  // const length = ((1280 / nCols) * eventLength).toFixed(2);
   return (
     <div
       className={`rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 border-amber-500 top-12 hover:cursor-pointer h-fit ${

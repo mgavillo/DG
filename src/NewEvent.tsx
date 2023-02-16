@@ -1,5 +1,4 @@
-import { GrAdd } from "react-icons/gr";
-import { getDatabase, ref, set, push } from "firebase/database";
+import { getDatabase, ref, push } from "firebase/database";
 
 import React, { useState } from "react";
 
@@ -42,7 +41,7 @@ export function NewEvent() {
       setEndDate(new Date(event.target.value));
       setChangedEndDate(true);
     }
-    if (newDate.getTime() == roundedStart.getTime()) setChangedEndDate(false);
+    if (newDate.getTime() === roundedStart.getTime()) setChangedEndDate(false);
   };
 
   return (

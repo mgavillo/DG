@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
-import { GrPrevious, GrNext, GrAdd } from "react-icons/gr";
+import { GrPrevious, GrNext } from "react-icons/gr";
 import TimeLineDay from "./TimelineDay";
 import { nbMsDay, timeFrame } from "./utils";
-import { getDatabase, ref, set, onValue } from "firebase/database";
-import { app } from "./Firebase";
+import { getDatabase, ref, onValue } from "firebase/database";
 import { NewEvent } from "./NewEvent";
 import { TimelineEvent } from "./TimelineEvent";
 
-const firebaseApp = app;
-const database = getDatabase();
-
 const getWeek = (date: Date) => {
   const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
 
   const startOfYear = new Date(year, 0, 1);
   const startOfWeek = startOfYear.getDay();
@@ -42,26 +35,26 @@ function Timeline() {
 
   console.log("fieldEvents", fieldEvents);
   const calcFirstDay = (i: number) => {
-    if (timeSelected == 0) {
+    if (timeSelected === 0) {
       return date.getDay() - 1 - i;
-    } else if (timeSelected == 1 || timeSelected == 2) {
+    } else if (timeSelected === 1 || timeSelected === 2) {
       return date.getDate() - 1 - i;
-    } else if (timeSelected == 3 || timeSelected == 4) {
+    } else if (timeSelected === 3 || timeSelected === 4) {
       return date.getMonth() - i;
     }
   };
 
   const moveDate = (movingSense: number) => {
     let newDate = new Date();
-    if (timeSelected == 0) {
+    if (timeSelected === 0) {
       newDate = new Date(date.getTime() + 7 * nbMsDay * movingSense);
-    } else if (timeSelected == 1 || timeSelected == 2) {
+    } else if (timeSelected === 1 || timeSelected === 2) {
       newDate = new Date(
         date.getFullYear(),
         date.getMonth() + 1 * movingSense,
         date.getDate()
       );
-    } else if (timeSelected == 3 || timeSelected == 4) {
+    } else if (timeSelected === 3 || timeSelected === 4) {
       newDate = new Date(
         date.getFullYear() + 1 * movingSense,
         date.getMonth(),
@@ -102,19 +95,19 @@ function Timeline() {
         </div>
         <hr />
 
-        {timeSelected == 0 && (
+        {timeSelected === 0 && (
           <h1 className="m-7 text-2xl">
             Week {getWeek(date)} {date.getFullYear()}
           </h1>
         )}
-        {timeSelected == 1 && (
+        {timeSelected === 1 && (
           <h1 className="m-7 text-2xl">
             {`${date.toLocaleString("default", {
               month: "long",
             })} ${date.getFullYear()}`}
           </h1>
         )}
-        {timeSelected == 2 && (
+        {timeSelected === 2 && (
           <h1 className="m-7 text-2xl">
             {`${date.toLocaleString("default", {
               month: "long",
@@ -123,10 +116,10 @@ function Timeline() {
             })} ${date.getFullYear()}`}
           </h1>
         )}
-        {timeSelected == 3 && (
+        {timeSelected === 3 && (
           <h1 className="m-7 text-2xl">{`${date.getFullYear()}`}</h1>
         )}
-        {timeSelected == 4 && (
+        {timeSelected === 4 && (
           <h1 className="m-7 text-2xl">{`${date.getFullYear()} - ${
             date.getFullYear() + 4
           }`}</h1>
@@ -141,14 +134,16 @@ function Timeline() {
               />
             ))}
           </div>
-          <div className="absolute w-full h-[39rem] mt-12 pt-4 pb-4 overflow-scroll" style={{overflow: "scroll"}}>
+          <div
+            className="absolute w-full h-[39rem] mt-12 pt-4 pb-4 overflow-scroll"
+            style={{ overflow: "scroll" }}
+          >
             <div
               className={`grid w-full  h-fit ${
                 timeFrame.nCols[timeSelected] > 31 ? "gap-y-1" : "gap-y-2"
               }`}
               style={{
                 gridTemplateColumns: `repeat(${timeFrame.nCols[timeSelected]}, 1fr)`,
-                // gridAutoRows: "40px",
                 gridAutoFlow: "column",
               }}
             >
@@ -157,7 +152,6 @@ function Timeline() {
                   const start = fieldEvents[key].startDate;
                   const end = fieldEvents[key].endDate;
 
-                  console.log(start, end, date.getTime());
                   if (
                     start > date.getTime() - nbMsDay * 6 &&
                     end < date.getTime() + nbMsDay * 6
@@ -170,6 +164,7 @@ function Timeline() {
                         date={date}
                       />
                     );
+                  else return <></>
                 })}
             </div>
           </div>

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import { timeFrame, nbMsDay } from "./utils";
 
-interface TimeLineDay {
+interface TimeLineDayProps {
   dayDifference?: number;
   timeSelected: number;
   date: Date;
@@ -11,9 +10,9 @@ function TimeLineDay({
   dayDifference = 0,
   timeSelected = 0,
   date,
-}: TimeLineDay) {
+}: TimeLineDayProps) {
   let current;
-  if (timeFrame.colLength[timeSelected] == "day") {
+  if (timeFrame.colLength[timeSelected] === "day") {
     current = new Date(date.getTime() - dayDifference * nbMsDay);
   } else {
     current = new Date(
