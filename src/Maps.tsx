@@ -158,6 +158,22 @@ export default function Maps() {
         />
         <Layer type="raster" id="layer_id" sourceId="source_id" /> */}
       </Map>
+      <div className="flex flex-row justify-between items-center p-12">
+        <div>
+          <h2>Soil type</h2>
+          <h1 className="text-3xl">Silty loam</h1>
+        </div>
+        <div className="h-12 w-[0.5px] solid bg-black"/>
+        <div>
+          <h2>Size</h2>
+          <h1 className="text-3xl">10ha</h1>
+        </div>
+        <div className="h-12 w-[0.5px] solid bg-black"/>
+        <div>
+          <h2>Climate</h2>
+          <h1 className="text-3xl">--</h1>
+        </div> 
+      </div>
     </div>
   );
 }
