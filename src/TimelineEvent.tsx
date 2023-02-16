@@ -5,6 +5,7 @@ interface TimelineEventProps {
   e: any;
   timeSelected: number;
   date: any;
+  setShowEvent: any;
 }
 
 const getFirstDate = (date: any) => {
@@ -13,7 +14,12 @@ const getFirstDate = (date: any) => {
   return new Date(newDate.getTime() - newDate.getDay() * nbMsDay);
 };
 
-export function TimelineEvent({ e, timeSelected, date }: TimelineEventProps) {
+export default function TimelineEvent({
+  e,
+  timeSelected,
+  date,
+  setShowEvent,
+}: TimelineEventProps) {
   const [hovered, setHovered] = useState(false);
   const [croped, setCroped] = useState({ left: false, right: false });
   const [out, setOut] = useState(false);
@@ -54,9 +60,7 @@ export function TimelineEvent({ e, timeSelected, date }: TimelineEventProps) {
   }, [timeSelected, date, e, nCols]);
 
   if (out) return <div></div>;
-  // console.log(timeFrame.nCols[timeSelected]*eventLength)
-  // const width = `calc(calc(80rem/${nCols})*${eventLength}+calc(calc(2px*${eventLength})+1px))`
-  // const length = ((1280 / nCols) * eventLength).toFixed(2);
+
   return (
     <div
       className={`rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 border-amber-500 top-12 hover:cursor-pointer h-fit ${
@@ -70,8 +74,11 @@ export function TimelineEvent({ e, timeSelected, date }: TimelineEventProps) {
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => {
+        console.log("wsh")
+        return setShowEvent(e)}}
+
     >
-      {/* // style={{width: `calc(${eventLength}*calc(80vw/${nCols}))`}}> */}
       <div
         className={`${
           nCols > 31 ? "text-base" : "text-3xl"

@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    .cardContainer {
+        @apply flex flex-col p-8 w-1/5 [&>*]:mb-6 min-w-[18rem] items-start relative rounded-lg
+    }
+    
+    .description {
+        @apply w-full h-56 p-3
+    }
+    
+    .datesContainer {
+        @apply w-full flex flex-row justify-between
+    }
+
+    .dateContainer {
+        @apply flex flex-col w-fit
+    }
+}

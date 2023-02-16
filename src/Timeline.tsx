@@ -4,8 +4,11 @@ import { GrPrevious, GrNext } from "react-icons/gr";
 import TimeLineDay from "./TimelineDay";
 import { nbMsDay, timeFrame } from "./utils";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { NewEvent } from "./NewEvent";
-import { TimelineEvent } from "./TimelineEvent";
+import NewEvent from "./NewEvent";
+import ShowEvent from "./ShowEvent";
+import TimelineEvent from "./TimelineEvent";
+import { app } from "./Firebase";
+const firebaseApp = app;
 
 const getWeek = (date: Date) => {
   const year = date.getFullYear();
@@ -22,18 +25,30 @@ function Timeline() {
   const [timeSelected, setTimeSelected] = useState(0);
   const [date, setDate] = useState(new Date());
   const [fieldEvents, setFieldEvents] = useState<any>();
+  const [showEvent, setShowEvent] = useState(null);
+  const [editEvent, setEditEvent] = useState(null);
   useEffect(() => {
     const db = getDatabase();
     const eventsRef = ref(db, "fields/" + 0 + "/Events/");
     onValue(eventsRef, (snapshot) => {
       const data = snapshot.val();
-      setFieldEvents(data);
+      console.log(data);
+      const newData = Object.keys(data).map((key) => {
+        return {
+          type: data[key].type,
+          description: data[key].description,
+          startDate: data[key].startDate,
+          endDate: data[key].endDate,
+          key: key,
+        };
+      });
+      console.log(newData);
+      setFieldEvents(newData);
     });
   }, []);
 
   useEffect(() => {}, []);
 
-  console.log("fieldEvents", fieldEvents);
   const calcFirstDay = (i: number) => {
     if (timeSelected === 0) {
       return date.getDay() - 1 - i;
@@ -64,9 +79,10 @@ function Timeline() {
     setDate(newDate);
   };
 
+  console.log(showEvent);
   return (
     <div className="flex flex-row flex-wrap items-center justify-center w-screen h-fit">
-      <div className="select-none w-4/5 h-fit min-w-[42rem]">
+      <div className="select-none w-4/6 h-fit min-w-[32rem]">
         <div className="flex flex-row justify-between m-2">
           <div className="flex flex-row items-center [&>*]:hover:cursor-pointer [&>*]:m-1">
             <p
@@ -148,9 +164,9 @@ function Timeline() {
               }}
             >
               {fieldEvents &&
-                Object.keys(fieldEvents).map((key) => {
-                  const start = fieldEvents[key].startDate;
-                  const end = fieldEvents[key].endDate;
+                fieldEvents.map((object: any) => {
+                  const start = object.startDate;
+                  const end = object.endDate;
 
                   if (
                     start > date.getTime() - nbMsDay * 6 &&
@@ -158,19 +174,28 @@ function Timeline() {
                   )
                     return (
                       <TimelineEvent
-                        key={key}
-                        e={fieldEvents[key]}
+                        key={object.key}
+                        e={object}
                         timeSelected={timeSelected}
                         date={date}
+                        setShowEvent={setShowEvent}
                       />
                     );
-                  else return <></>
+                  else return <></>;
                 })}
             </div>
           </div>
         </div>
       </div>
-      <NewEvent />
+      {showEvent ? (
+        <ShowEvent
+          e={showEvent}
+          setShowEvent={setShowEvent}
+          setEditEvent={setEditEvent}
+        />
+      ) : (
+        <NewEvent editEvent={editEvent} setEditEvent={setEditEvent} />
+      )}
     </div>
   );
 }

@@ -6,7 +6,7 @@ interface TimeLineDayProps {
   date: Date;
 }
 
-function TimeLineDay({
+export default function TimeLineDay({
   dayDifference = 0,
   timeSelected = 0,
   date,
@@ -64,5 +64,3 @@ function TimeLineDay({
     </div>
   );
 }
-
-export default TimeLineDay;
