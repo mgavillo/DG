@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import { timeFrame, nbMsDay } from "./utils";
+import { timeFrame, nbMsDay } from "../utils";
 
-interface TimeLineDay {
+interface TimeLineDayProps {
   dayDifference?: number;
   timeSelected: number;
   date: Date;
 }
 
-function TimeLineDay({
+export function TimeLineDay({
   dayDifference = 0,
   timeSelected = 0,
   date,
-}: TimeLineDay) {
+}: TimeLineDayProps) {
   let current;
-  if (timeFrame.colLength[timeSelected] == "day") {
+  if (timeFrame.colLength[timeSelected] === "day") {
     current = new Date(date.getTime() - dayDifference * nbMsDay);
   } else {
     current = new Date(
@@ -28,11 +27,11 @@ function TimeLineDay({
 
   return (
     <div
-      className={` ${isToday ? "bg-amber-100" : ""}`}
-      style={{ width: `calc(80vw/${length})` }}
+      className={`h-full ${isToday ? "bg-amber-100" : ""}`}
+      style={{ width: `calc(70vw/${length})` }}
     >
       <div
-        className={`flex-col w-full border-t-2 ${
+        className={`flex-col w-full border-t-2 h-12 ${
           isToday ? "border-b-4 border-amber-400" : "border-b-2"
         }`}
       >
@@ -61,9 +60,7 @@ function TimeLineDay({
           </>
         )}
       </div>
-      <div className="w-full h-96 border-r border-neutral-200"></div>
+      <div className="w-full border-r border-neutral-200" style={{height:"calc(100% - 3rem"}}></div>
     </div>
   );
 }
-
-export default TimeLineDay;
