@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { nbMsDay, timeFrame } from "./utils";
+import { nbMsDay, timeFrame } from "../utils";
 
 interface TimelineEventProps {
   e: any;
@@ -14,7 +14,7 @@ const getFirstDate = (date: any) => {
   return new Date(newDate.getTime() - newDate.getDay() * nbMsDay);
 };
 
-export default function TimelineEvent({
+export function TimelineEvent({
   e,
   timeSelected,
   date,

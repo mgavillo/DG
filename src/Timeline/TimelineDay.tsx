@@ -1,4 +1,4 @@
-import { timeFrame, nbMsDay } from "./utils";
+import { timeFrame, nbMsDay } from "../utils";
 
 interface TimeLineDayProps {
   dayDifference?: number;
@@ -6,7 +6,7 @@ interface TimeLineDayProps {
   date: Date;
 }
 
-export default function TimeLineDay({
+export function TimeLineDay({
   dayDifference = 0,
   timeSelected = 0,
   date,
@@ -28,7 +28,7 @@ export default function TimeLineDay({
   return (
     <div
       className={`h-full ${isToday ? "bg-amber-100" : ""}`}
-      style={{ width: `calc(80vw/${length})` }}
+      style={{ width: `calc(70vw/${length})` }}
     >
       <div
         className={`flex-col w-full border-t-2 h-12 ${

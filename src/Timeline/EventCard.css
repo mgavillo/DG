@@ -4,7 +4,7 @@
 
 @layer base{
     .cardContainer {
-        @apply flex flex-col p-8 w-1/5 [&>*]:mb-6 min-w-[18rem] items-start relative rounded-lg
+        @apply flex flex-col p-8 w-[20vw] [&>*]:mb-6 min-w-[18rem] items-start relative rounded-lg
     }
     
     .description {

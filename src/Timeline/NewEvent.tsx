@@ -1,4 +1,5 @@
 import { getDatabase, ref, push, update } from "firebase/database";
+import "./EventCard.css";
 
 import React, { useState } from "react";
 
@@ -13,10 +14,10 @@ const types = [
 
 interface NewEventProps {
   editEvent: any | null;
-  setEditEvent: any
+  setEditEvent: any;
 }
 
-export default function NewEvent({ editEvent, setEditEvent}: NewEventProps) {
+export function NewEvent({ editEvent, setEditEvent }: NewEventProps) {
   const [startDate, setStartDate] = useState(
     editEvent ? new Date(editEvent.startDate) : new Date()
   );
@@ -31,7 +32,7 @@ export default function NewEvent({ editEvent, setEditEvent}: NewEventProps) {
     editEvent ? editEvent.type : types[0]
   );
 
-  console.log(editEvent)
+  console.log(editEvent);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,11 +43,6 @@ export default function NewEvent({ editEvent, setEditEvent}: NewEventProps) {
       endDate: endDate.getTime(),
       description: description,
     });
-
-    console.log("Start date:", startDate);
-    console.log("End date:", endDate);
-    console.log("Description:", description);
-    console.log("Type:", selectedType);
   };
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -57,7 +53,7 @@ export default function NewEvent({ editEvent, setEditEvent}: NewEventProps) {
       endDate: endDate.getTime(),
       description: description,
     });
-    setEditEvent(null)
+    setEditEvent(null);
   };
 
   const changeEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +67,10 @@ export default function NewEvent({ editEvent, setEditEvent}: NewEventProps) {
   };
 
   return (
-    <form onSubmit={editEvent ? handleEdit : handleSubmit} className="cardContainer bg-slate-50">
+    <form
+      onSubmit={editEvent ? handleEdit : handleSubmit}
+      className="cardContainer bg-slate-50"
+    >
       <select
         value={selectedType}
         onChange={(event) => setSelectedType(event.target.value)}
@@ -115,7 +114,7 @@ export default function NewEvent({ editEvent, setEditEvent}: NewEventProps) {
       <div className="w-full flex items-center justify-center">
         <button
           type="submit"
-          className="py-1 px-3 rounded-md border-2 border-neutral-800 hover:bg-neutral-800 hover:text-gray-50 w-fit"
+          className="primary-button"
         >
           Submit
         </button>
