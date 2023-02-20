@@ -1,6 +1,7 @@
 import { Timeline } from "./Timeline";
 import { Charts } from "./Charts";
 import { Maps } from "./Maps";
+import { Impact } from "./Impact";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <h1 className="pb-12 text-4xl w-full text-start">Absurbary Farm</h1>
         <Maps />
       </div>
+      <Impact/>
       <Charts />
       <Timeline />
     </div>
