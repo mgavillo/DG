@@ -51,8 +51,8 @@ export function Timeline() {
 
   console.log(showEvent);
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between p-8 w-screen h-fit">
-      <div className="select-none w-[70vw] h-fit relative">
+    <div className="flex flex-row flex-wrap items-center justify-between p-8 px-24 w-screen h-fit">
+      <div className="select-none w-[60vw] h-fit relative">
         <TimeFrameHeader timeSelected={timeSelected} setTimeSelected={setTimeSelected} date={date} setDate={setDate}/>
         <hr />
         <Title timeSelected={timeSelected} date={date}/>

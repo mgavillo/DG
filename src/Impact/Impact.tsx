@@ -4,7 +4,7 @@ export function Impact() {
   const confidance = 95;
   const impact = 87;
   return (
-    <div className="rounded-full shadow-lg w-64 h-64 flex flex-col items-center justify-center relative">
+    <div className="rounded-full shadow-lg w-64 h-64 flex flex-col items-center justify-center relative mb-12">
       <PercentageCircle
         color="Gradient2"
         cssSize="17rem"
