@@ -4,7 +4,7 @@ interface PopUpProps {
   setClose: any;
 }
 
-export default function PopUp({ title, options }: PopUpProps) {
+export function PopUp({ title, options }: PopUpProps) {
 
   return (
     <div className="fixed top-0 right-0 bottom-0 left-0 z-50 w-screen h-screen bg-[#000000CC] flex flex-col justify-center items-center">
