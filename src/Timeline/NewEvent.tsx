@@ -1,5 +1,6 @@
 import { getDatabase, ref, push, update } from "firebase/database";
 import "./EventCard.css";
+import { GrEdit, GrClose, GrPrevious } from "react-icons/gr";
 
 import React, { useState } from "react";
 
@@ -71,6 +72,13 @@ export function NewEvent({ editEvent, setEditEvent }: NewEventProps) {
       onSubmit={editEvent ? handleEdit : handleSubmit}
       className="cardContainer bg-slate-50"
     >
+      {editEvent && 
+        <GrPrevious
+          className="absolute top-0 left-0 m-4 hover:cursor-pointer"
+          color={"#000"}
+          onClick={() => setEditEvent(null)}
+        />
+      }
       <select
         value={selectedType}
         onChange={(event) => setSelectedType(event.target.value)}
@@ -112,10 +120,7 @@ export function NewEvent({ editEvent, setEditEvent }: NewEventProps) {
         </div>
       </div>
       <div className="w-full flex items-center justify-center">
-        <button
-          type="submit"
-          className="primary-button"
-        >
+        <button type="submit" className="primary-button">
           Submit
         </button>
       </div>

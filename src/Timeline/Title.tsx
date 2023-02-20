@@ -1,3 +1,5 @@
+import { nbMsDay } from "../utils";
+
 interface TitleProps {
   timeSelected: number;
   date: Date;
@@ -18,40 +20,42 @@ export function Title({ timeSelected, date }: TitleProps) {
   let text;
   let heavyText;
   let underText;
+  heavyText = date.getFullYear();
 
+  let firstDayofWeek = date.getDate() - date.getDay() + 1
   switch (timeSelected) {
     case 0:
-      text = `${date.toLocaleString("default", {
+      text = `${date.getDate() - date.getDay() + 1} - ${
+        date.getDate() + 7 - date.getDay()
+      } ${date.toLocaleString("default", {
         month: "long",
       })}`;
-      heavyText = `${date.getFullYear()}`;
-      underText = `Week ${getWeek(date)}`;
       break;
     case 1:
       text = `${date.toLocaleString("default", {
         month: "long",
-      })} ${date.getFullYear()}`;
+      })}`;
       break;
     case 2:
       text = `${date.toLocaleString("default", {
         month: "long",
-      })} - ${date.toLocaleString("default", {
-        month: "long",
-      })} ${date.getFullYear()}`;
-      break;
-    case 3:
-      text = `${date.getFullYear()}`;
+      })} - ${new Date(date.setMonth(date.getMonth() + 1)).toLocaleString(
+        "default",
+        {
+          month: "long",
+        }
+      )}`;
+
       break;
     case 4:
-      text = `${date.getFullYear()} - ${date.getFullYear() + 4}`;
+      heavyText = `${date.getFullYear()} - ${date.getFullYear() + 4}`;
   }
   return (
-    <div className="flex flex-col items-center h-32">
+    <div className="flex flex-col items-center">
       <h1 className="m-7 text-2xl">
-        {text}
-        <span className="text-3xl">{heavyText}</span>
+        {text} <span className="font-black">{heavyText}</span>
       </h1>
-      <p>{underText}</p>
+      {/* <p>{underText}</p> */}
     </div>
   );
 }

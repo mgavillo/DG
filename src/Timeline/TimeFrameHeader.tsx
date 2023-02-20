@@ -1,47 +1,58 @@
 import { GrPrevious, GrNext } from "react-icons/gr";
 import { nbMsDay, timeFrame } from "../utils";
+import { Title } from "./Title";
 
-interface TimeFrameHeaderProps{
-    timeSelected:number,
-    setTimeSelected:any,
-    date: any,
-    setDate: any
+interface TimeFrameHeaderProps {
+  timeSelected: number;
+  setTimeSelected: any;
+  date: any;
+  setDate: any;
 }
-export function TimeFrameHeader({timeSelected, setTimeSelected, date, setDate}:TimeFrameHeaderProps) {
-    const moveDate = (movingSense: number) => {
-        let newDate = new Date();
-        if (timeSelected === 0) {
-          newDate = new Date(date.getTime() + 7 * nbMsDay * movingSense);
-        } else if (timeSelected === 1 || timeSelected === 2) {
-          newDate = new Date(
-            date.getFullYear(),
-            date.getMonth() + 1 * movingSense,
-            date.getDate()
-          );
-        } else if (timeSelected === 3 || timeSelected === 4) {
-          newDate = new Date(
-            date.getFullYear() + 1 * movingSense,
-            date.getMonth(),
-            date.getDate()
-          );
-        }
-        setDate(newDate);
-      };
-    
-    
-    return (
+export function TimeFrameHeader({
+  timeSelected,
+  setTimeSelected,
+  date,
+  setDate,
+}: TimeFrameHeaderProps) {
+  const moveDate = (movingSense: number) => {
+    let newDate = new Date();
+    if (timeSelected === 0) {
+      newDate = new Date(date.getTime() + 7 * nbMsDay * movingSense);
+    } else if (timeSelected === 1 || timeSelected === 2) {
+      newDate = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1 * movingSense,
+        date.getDate()
+      );
+    } else if (timeSelected === 3 || timeSelected === 4) {
+      newDate = new Date(
+        date.getFullYear() + 1 * movingSense,
+        date.getMonth(),
+        date.getDate()
+      );
+    }
+    setDate(newDate);
+  };
+
+  return (
     <div className="flex flex-row justify-between m-2">
-      <div className="flex flex-row items-center [&>*]:hover:cursor-pointer [&>*]:m-1">
-          <GrPrevious size={30} onClick={() => moveDate(-1)} />
+      <div className="flex flex-row items-center [&>*]:hover:cursor-pointer [&>*]:m-1 w-1/5">
+        <div className="hover:bg-gray-100 rounded-md p-2">
+          <GrPrevious size={26} onClick={() => moveDate(-1)} />
+        </div>
         <p
           className="py-1 px-3 rounded-md border-2 border-neutral-800 hover:bg-neutral-800 hover:text-gray-50"
           onClick={() => setDate(new Date())}
         >
           Today
         </p>
-        <GrNext size={30} onClick={() => moveDate(1)} />
+        <div className="hover:bg-gray-100 rounded-md p-2">
+          <GrNext size={26} onClick={() => moveDate(1)} />
+        </div>
       </div>
-      <div className="flex flex-row items-center [&>p]:inline [&>p]:m-1">
+      <Title timeSelected={timeSelected} date={date} />
+
+      <div className="flex flex-row items-center [&>p]:inline [&>p]:m-1 w-1/5 justify-end">
         {timeFrame.length.map((element, i) => {
           return (
             <p
