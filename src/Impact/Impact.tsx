@@ -10,12 +10,14 @@ export function Impact() {
         cssSize="17rem"
         strokeWidth={1}
         percentage={confidance}
+        animationLength={1.5}
       />
       <PercentageCircle
         color="Gradient1"
         cssSize="15rem"
         strokeWidth={2}
         percentage={impact}
+        animationLength={2}
       />
       <h2 className="text-2xl"><span className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-gaia-light-orange to-gaia-orange">{impact}</span>/100</h2>
       <h2 className="text-2xl font-bold">impact</h2>
