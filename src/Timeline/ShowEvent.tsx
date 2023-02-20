@@ -3,7 +3,7 @@ import { GrEdit, GrClose, GrPrevious } from "react-icons/gr";
 import { BsCalendar } from "react-icons/bs";
 import "./EventCard.css";
 import { getDatabase, ref, remove } from "firebase/database";
-import PopUp from "../components/PopUp";
+import { PopUp } from "../components";
 
 export function ShowEvent({ e, setShowEvent, setEditEvent }: any) {
   const [hovered, setHovered] = useState(false);
@@ -21,7 +21,7 @@ export function ShowEvent({ e, setShowEvent, setEditEvent }: any) {
     setShowEvent(null);
     setEditEvent(e);
   };
-  
+
   return (
     <div
       className="cardContainer bg-amber-100"
