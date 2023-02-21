@@ -1,5 +1,4 @@
 import { useRef, useEffect, useCallback } from "react";
-import "./Impact.css";
 
 interface Props {
   cssSize: string;
