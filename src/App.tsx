@@ -9,7 +9,7 @@ function App() {
     <div className="App flex justify-start items-start flex-col [&>*]:mb-32">
       <div className="flex flex-row items-start justify-between w-screen p-8 px-24 pt-24">
         <div>
-          <h1 className="pb-12 text-4xl w-full text-start">Absurbary Farm</h1>
+          <h1 className="pb-12 text-4xl w-full text-start font-black">Absurbary Farm</h1>
           <Maps />
         </div>
         <div className="flex flex-col items-center">
