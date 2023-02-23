@@ -28,7 +28,7 @@ export function TimeLineDay({
   return (
     <div
       className={`h-full ${isToday ? "bg-amber-100" : ""}`}
-      style={{ width: `calc(70vw/${length})` }}
+      style={{ width: `calc(60vw/${length})` }}
     >
       <div
         className={`flex-col w-full border-t-2 h-12 ${
