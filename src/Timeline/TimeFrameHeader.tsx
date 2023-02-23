@@ -14,26 +14,20 @@ export function TimeFrameHeader({
   date,
   setDate,
 }: TimeFrameHeaderProps) {
+
   const moveDate = (movingSense: number) => {
-    let newDate = new Date();
+    let newDate = new Date(date);
     if (timeSelected === 0) {
       newDate = new Date(date.getTime() + 7 * nbMsDay * movingSense);
     } else if (timeSelected === 1 || timeSelected === 2) {
-      newDate = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1 * movingSense,
-        date.getDate()
-      );
+      newDate = new Date(newDate.setMonth(newDate.getMonth() + (1 * movingSense)))
     } else if (timeSelected === 3 || timeSelected === 4) {
-      newDate = new Date(
-        date.getFullYear() + 1 * movingSense,
-        date.getMonth(),
-        date.getDate()
-      );
+      newDate = new Date(newDate.setFullYear(newDate.getFullYear() + (1 * movingSense)))
     }
     setDate(newDate);
   };
 
+  console.log("DATE", date)
   return (
     <div className="flex flex-row justify-between m-2">
       <div className="flex flex-row items-center [&>*]:hover:cursor-pointer [&>*]:m-1 w-1/5">

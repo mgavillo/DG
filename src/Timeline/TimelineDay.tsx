@@ -3,13 +3,13 @@ import { timeFrame, nbMsDay } from "../utils";
 interface TimeLineDayProps {
   dayDifference?: number;
   timeSelected: number;
-  date: Date;
+  date?: Date;
 }
 
 export function TimeLineDay({
   dayDifference = 0,
   timeSelected = 0,
-  date,
+  date = new Date(),
 }: TimeLineDayProps) {
   let current;
   if (timeFrame.colLength[timeSelected] === "day") {
@@ -28,7 +28,7 @@ export function TimeLineDay({
   return (
     <div
       className={`h-full ${isToday ? "bg-amber-100" : ""}`}
-      style={{ width: `calc(60vw/${length})` }}
+      style={{ width: `calc(calc(100vw - 12rem)/${length})` }}
     >
       <div
         className={`flex-col w-full border-t-2 h-12 ${

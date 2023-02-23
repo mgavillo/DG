@@ -22,14 +22,19 @@ export function Title({ timeSelected, date }: TitleProps) {
   let underText;
   heavyText = date.getFullYear();
 
-  let firstDayofWeek = date.getDate() - date.getDay() + 1
+  let firstDayofWeek = date.getDate() - date.getDay() + 1;
+  const firstDate = new Date(date);
+  const secDate = new Date(date);
   switch (timeSelected) {
     case 0:
-      text = `${date.getDate() - date.getDay() + 1} - ${
-        date.getDate() + 7 - date.getDay()
-      } ${date.toLocaleString("default", {
-        month: "long",
-      })}`;
+      firstDate.setDate(date.getDate() - date.getDay() + 1);
+      secDate.setDate(date.getDate() + 7 - date.getDay());
+      text = `${firstDate.getDate()} - ${secDate.getDate()} ${date.toLocaleString(
+        "default",
+        {
+          month: "long",
+        }
+      )}`;
       break;
     case 1:
       text = `${date.toLocaleString("default", {
@@ -39,7 +44,7 @@ export function Title({ timeSelected, date }: TitleProps) {
     case 2:
       text = `${date.toLocaleString("default", {
         month: "long",
-      })} - ${new Date(date.setMonth(date.getMonth() + 1)).toLocaleString(
+      })} - ${new Date(secDate.setMonth(date.getMonth() + 1)).toLocaleString(
         "default",
         {
           month: "long",
