@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Tooltip } from "../components";
 import { nbMsDay, timeFrame } from "../utils";
 import { ShowEvent } from "./ShowEvent";
 
