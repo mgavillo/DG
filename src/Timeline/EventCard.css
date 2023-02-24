@@ -4,11 +4,11 @@
 
 @layer base{
     .cardContainer {
-        @apply flex flex-col p-8 w-[20vw] [&>*]:mb-6 min-w-[18rem] items-start relative rounded-lg
+        @apply flex flex-col p-8 w-[28rem] [&>*]:mb-6 items-start relative rounded-lg
     }
     
     .description {
-        @apply w-full h-56 p-3
+        @apply w-full h-24 p-3
     }
     
     .datesContainer {

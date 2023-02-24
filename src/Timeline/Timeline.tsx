@@ -13,6 +13,7 @@ import {
 } from ".";
 import { app } from "../Firebase";
 import { EventGrid } from "./EventGrid";
+import { BsPlus } from "react-icons/bs";
 const firebaseApp = app;
 
 export function Timeline() {
@@ -21,9 +22,9 @@ export function Timeline() {
   const [fieldEvents, setFieldEvents] = useState<any>();
   const [showEvent, setShowEvent] = useState(null);
   const [editEvent, setEditEvent] = useState(null);
-
+  const [createEvent, setCreateEvent] = useState(false);
   useEffect(() => {
-    setDate(new Date())
+    setDate(new Date());
     const db = getDatabase();
     const eventsRef = ref(db, "fields/" + 0 + "/Events/");
     onValue(eventsRef, (snapshot) => {
@@ -31,6 +32,7 @@ export function Timeline() {
       console.log(data);
       const newData = Object.keys(data).map((key) => {
         return {
+          crop: data[key].crop,
           type: data[key].type,
           description: data[key].description,
           startDate: data[key].startDate,
@@ -61,7 +63,11 @@ export function Timeline() {
           date={date}
           setDate={setDate}
         />
-
+        <div className="w-full flex flex-row justify-end pr-3 mb-2">
+          <div className="py-1 px-3 rounded-md border-2 border-neutral-800 hover:bg-neutral-800 hover:text-gray-50 hover:cursor-pointer">
+            <BsPlus size={25} onClick={() => setCreateEvent(true)} />
+          </div>
+        </div>
         <div className="relative w-full p-2 h-[42rem]">
           <div className="flex flex-row text-xs bottom absolute h-[42rem]">
             {Array.from({ length: timeFrame.nCols[timeSelected] }, (_, i) => (
@@ -81,7 +87,9 @@ export function Timeline() {
         </div>
       </div>
 
-      <NewEvent editEvent={editEvent} setEditEvent={setEditEvent} />
+      {createEvent && (
+        <NewEvent editEvent={editEvent} setEditEvent={setEditEvent} setCreateEvent={setCreateEvent} />
+      )}
     </div>
   );
 }

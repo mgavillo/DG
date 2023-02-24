@@ -90,7 +90,7 @@ export function TimelineEvent({
 
   return (
     <div
-      className={`rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 border-amber-500 top-12 hover:cursor-pointer h-fit ${
+      className={`rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 border-amber-500 top-12 hover:cursor-pointer h-fit relative ${
         croped.left ? "rounded-l-none" : ""
       } ${croped.right ? "rounded-r-none" : ""}
     ${nCols > 31 ? "rounded-md" : ""}`}
