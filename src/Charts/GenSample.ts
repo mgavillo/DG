@@ -38,9 +38,9 @@ export const genAssessment = (Bscale: number, scale: number, initial: number) =>
 
   let noise = (magnitude: number) => { return (1 - (Math.random() * 2)) * magnitude }
 
-  const assessment_datetime: string = "2021-09-10 11:31:00Z"
+  const assessment_datetime: string = "2023-09-10 11:31:00Z"
   const data_start_datetime: string = "2020-05-16 12:30:00Z"
-  const data_end_datetime: string = "2023-01-01 1:15:00Z"
+  const data_end_datetime: string = "2024-01-01 1:15:00Z"
 
   let assessment: Assessment = {
     date: assessment_datetime,
