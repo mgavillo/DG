@@ -15,7 +15,7 @@ export function EventGrid({
 }: EventGridProps) {
   return (
     <div
-      className="absolute w-full h-[39rem] mt-12 pt-4 pb-4 overflow-scroll"
+      className="absolute w-full h-[39rem] pt-4 pb-4 overflow-scroll"
       style={{ overflow: "scroll" }}
     >
       <div
