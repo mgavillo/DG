@@ -85,21 +85,21 @@ export default function Maps() {
           }}
           onDrag={() => setBounds(undefined)}
           onZoom={() => setBounds(undefined)}
-          onStyleLoad={(map) => {
-            map.addSource("mapbox-dem", {
-              type: "raster-dem",
-              url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-              tileSize: 512,
-              maxzoom: 14,
-            });
+          // onStyleLoad={(map) => {
+          //   map.addSource("mapbox-dem", {
+          //     type: "raster-dem",
+          //     url: "mapbox://mapbox.mapbox-terrain-dem-v1",
+          //     tileSize: 512,
+          //     maxzoom: 14,
+          //   });
 
-            map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 });
-            map.setZoom(14);
-            map.setPitch(80);
-            map.setBearing(41);
-            map.setCenter([-114.26608, 32.7213]);
-            // Do whatever you want with the map instance here like map.addLayer or map.addSource
-          }}
+          //   map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 });
+          //   map.setZoom(14);
+          //   map.setPitch(80);
+          //   map.setBearing(41);
+          //   map.setCenter([-114.26608, 32.7213]);
+          //   // Do whatever you want with the map instance here like map.addLayer or map.addSource
+          // }}
         >
           {(edit && (
             <>
@@ -129,6 +129,7 @@ export default function Maps() {
               </div>
             </>
           )) || <></>}
+  
           {(!edit && (
             <>
               <div className="absolute left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer z-10">
@@ -138,20 +139,16 @@ export default function Maps() {
                   size={20}
                 ></AiFillEdit>
               </div>
-              {/* <Layer {...polygonLayer}/> */}
-              {/* <Source
-              title="polygon"
-              type="geojson"
-              data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
-            /> */}
-              <GeoJSONLayer
-                data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
-                fillPaint={{
-                  "fill-color": "#ff9b01",
-                  "fill-opacity": 0.5,
-                  "fill-outline-color": "#ff9b01",
-                }}
-              />
+              {polygon && (
+                <GeoJSONLayer
+                  data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
+                  fillPaint={{
+                    "fill-color": "#ff9b01",
+                    "fill-opacity": 0.5,
+                    "fill-outline-color": "#ff9b01",
+                  }}
+                />
+              )}
             </>
           )) || <></>}
         </Map>
