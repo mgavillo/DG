@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useRef, useState } from "react";
+import React, { createRef, Suspense, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import ReactMapboxGl, {
   Layer,
@@ -74,89 +74,88 @@ export default function Maps() {
   return (
     <div id="map-wrapper" className={"relative select-none w-[52rem] h-32rem]"}>
       <pre id="info"></pre>
+      <Suspense>
+        <Map
+          className="rounded-xl"
+          style="mapbox://styles/mapbox/satellite-streets-v12" // eslint-disable-line
+          containerStyle={{ height: "32rem", width: "52rem" }}
+          fitBounds={bounds}
+          fitBoundsOptions={{
+            padding: { top: 70, bottom: 70, left: 70, right: 70 },
+          }}
+          onDrag={() => setBounds(undefined)}
+          onZoom={() => setBounds(undefined)}
+          onStyleLoad={(map) => {
+            map.addSource("mapbox-dem", {
+              type: "raster-dem",
+              url: "mapbox://mapbox.mapbox-terrain-dem-v1",
+              tileSize: 512,
+              maxzoom: 14,
+            });
 
-      <Map
-        className="rounded-xl"
-        style="mapbox://styles/mapbox/satellite-streets-v12" // eslint-disable-line
-        containerStyle={{ height: "32rem", width: "52rem" }}
-        fitBounds={bounds}
-        fitBoundsOptions={{
-          padding: { top: 70, bottom: 70, left: 70, right: 70 },
-        }}
-        onDrag={() => setBounds(undefined)}
-        onZoom={() => setBounds(undefined)}
-        onStyleLoad={(map) => {
-          map.addSource('mapbox-dem', {
-            type: "raster-dem",
-            url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-            tileSize: 512,
-            maxzoom: 14})
-            
-
-            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-            map.setZoom(14)
-            map.setPitch(80)
-            map.setBearing(41)
-            map.setCenter([-114.26608, 32.7213])
-                      // Do whatever you want with the map instance here like map.addLayer or map.addSource
-        }}
-
-      >
-        {(edit && (
-          <>
-            <DrawControl
-              ref={(drawControl) => {
-                if (!drawControl) return;
-                drawControls.current = drawControl;
-              }}
-              //   ref={drawControls}
-              position="top-left"
-              displayControlsDefault={false}
-              onDrawCreate={onDrawUpdate}
-              onDrawUpdate={onDrawUpdate}
-              onDrawDelete={onDrawDelete}
-              controls={{
-                polygon: true,
-                trash: true,
-              }}
-              //change default mode in index.d.ts lib
-              // defaultMode={polygon ? "simple_select" : "draw_polygon"}
-            />
-            <div
-              className="absolute right-2 bottom-4 text-xl p-2 bg-black text-white hover:cursor-pointer hover:bg-white hover:text-black z-10 rounded-md"
-              onClick={onSubmit}
-            >
-              Submit
-            </div>
-          </>
-        )) || <></>}
-        {(!edit && (
-          <>
-            <div className="absolute left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer z-10">
-              <AiFillEdit
-                onClick={onEdit}
-                color={"#000"}
-                size={20}
-              ></AiFillEdit>
-              
-            </div>
-            {/* <Layer {...polygonLayer}/> */}
-            {/* <Source
+            map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 });
+            map.setZoom(14);
+            map.setPitch(80);
+            map.setBearing(41);
+            map.setCenter([-114.26608, 32.7213]);
+            // Do whatever you want with the map instance here like map.addLayer or map.addSource
+          }}
+        >
+          {(edit && (
+            <>
+              <DrawControl
+                ref={(drawControl) => {
+                  if (!drawControl) return;
+                  drawControls.current = drawControl;
+                }}
+                //   ref={drawControls}
+                position="top-left"
+                displayControlsDefault={false}
+                onDrawCreate={onDrawUpdate}
+                onDrawUpdate={onDrawUpdate}
+                onDrawDelete={onDrawDelete}
+                controls={{
+                  polygon: true,
+                  trash: true,
+                }}
+                //change default mode in index.d.ts lib
+                // defaultMode={polygon ? "simple_select" : "draw_polygon"}
+              />
+              <div
+                className="absolute right-2 bottom-4 text-xl p-2 bg-black text-white hover:cursor-pointer hover:bg-white hover:text-black z-10 rounded-md"
+                onClick={onSubmit}
+              >
+                Submit
+              </div>
+            </>
+          )) || <></>}
+          {(!edit && (
+            <>
+              <div className="absolute left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer z-10">
+                <AiFillEdit
+                  onClick={onEdit}
+                  color={"#000"}
+                  size={20}
+                ></AiFillEdit>
+              </div>
+              {/* <Layer {...polygonLayer}/> */}
+              {/* <Source
               title="polygon"
               type="geojson"
               data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
             /> */}
-            <GeoJSONLayer
-              data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
-              fillPaint={{
-                "fill-color": "#ff9b01",
-                "fill-opacity": 0.5,
-                "fill-outline-color": "#ff9b01",
-              }}
-            />
-          </>
-        )) || <></>}
-      </Map>
+              <GeoJSONLayer
+                data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
+                fillPaint={{
+                  "fill-color": "#ff9b01",
+                  "fill-opacity": 0.5,
+                  "fill-outline-color": "#ff9b01",
+                }}
+              />
+            </>
+          )) || <></>}
+        </Map>
+      </Suspense>
       <div className="flex flex-row justify-between items-center p-12">
         <div>
           <h2>Soil type</h2>
