@@ -101,39 +101,37 @@ export default function Maps() {
             //   map.setCenter([-114.26608, 32.7213]);
             //   // Do whatever you want with the map instance here like map.addLayer or map.addSource
             // }}
-          >
-            {(edit && (
-              <>
-                <DrawControl
-                  ref={(drawControl) => {
-                    if (!drawControl) return;
-                    drawControls.current = drawControl;
-                  }}
-                  //   ref={drawControls}
-                  position="top-left"
-                  displayControlsDefault={false}
-                  onDrawCreate={onDrawUpdate}
-                  onDrawUpdate={onDrawUpdate}
-                  onDrawDelete={onDrawDelete}
-                  controls={{
-                    polygon: true,
-                    trash: true,
-                  }}
-                  //change default mode in index.d.ts lib
-                  // defaultMode={polygon ? "simple_select" : "draw_polygon"}
-                />
-                <div
-                  className="absolute right-2 bottom-4 text-xl p-2 bg-black text-white hover:cursor-pointer hover:bg-white hover:text-black z-10 rounded-md"
-                  onClick={onSubmit}
-                >
-                  Submit
-                </div>
-              </>
-            )) || <></>}
-          </Map>
-          {(!edit && (
+          ></Map>
+          {(edit && (
+            <div className="z-50">
+              <DrawControl
+                ref={(drawControl) => {
+                  if (!drawControl) return;
+                  drawControls.current = drawControl;
+                }}
+                //   ref={drawControls}
+                position="top-left"
+                displayControlsDefault={false}
+                onDrawCreate={onDrawUpdate}
+                onDrawUpdate={onDrawUpdate}
+                onDrawDelete={onDrawDelete}
+                controls={{
+                  polygon: true,
+                  trash: true,
+                }}
+                //change default mode in index.d.ts lib
+                // defaultMode={polygon ? "simple_select" : "draw_polygon"}
+              />
+              <div
+                className="absolute right-2 bottom-4 text-xl p-2 bg-black text-white hover:cursor-pointer hover:bg-white hover:text-black z-10 rounded-md"
+                onClick={onSubmit}
+              >
+                Submit
+              </div>
+            </div>
+          )) || (
             <>
-              <div className="absolute z-50 left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer mapboxgl-ctrl-top-left">
+              <div className="absolute z-50 left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer mapboxgl-ctrl-top-left" style={{zIndex:100}}>
                 <AiFillEdit
                   onClick={onEdit}
                   color={"#000"}
@@ -151,7 +149,7 @@ export default function Maps() {
                 />
               )}
             </>
-          )) || <></>}
+          )}
         </div>
       </Suspense>
       <div className="flex flex-row justify-between items-center p-12">
