@@ -128,27 +128,27 @@ export default function Maps() {
                 >
                   Submit
                 </div>
-                {(!edit && (
-                  <>
-                    <div className="absolute z-50 left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer mapboxgl-ctrl-top-left">
-                      <AiFillEdit
-                        onClick={onEdit}
-                        color={"#000"}
-                        size={20}
-                      ></AiFillEdit>
-                    </div>
-                    {polygon && (
-                      <GeoJSONLayer
-                        data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
-                        fillPaint={{
-                          "fill-color": "#ff9b01",
-                          "fill-opacity": 0.5,
-                          "fill-outline-color": "#ff9b01",
-                        }}
-                      />
-                    )}
-                  </>
-                )) || <></>}
+              </>
+            )) || <></>}
+            {(!edit && (
+              <>
+                <div className="absolute z-50 left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer mapboxgl-ctrl-top-left">
+                  <AiFillEdit
+                    onClick={onEdit}
+                    color={"#000"}
+                    size={20}
+                  ></AiFillEdit>
+                </div>
+                {polygon && (
+                  <GeoJSONLayer
+                    data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
+                    fillPaint={{
+                      "fill-color": "#ff9b01",
+                      "fill-opacity": 0.5,
+                      "fill-outline-color": "#ff9b01",
+                    }}
+                  />
+                )}
               </>
             )) || <></>}
           </Map>
