@@ -7,11 +7,11 @@ import ReactMapboxGl, {
   Feature,
 } from "react-mapbox-gl";
 import DrawControl from "react-mapbox-gl-draw";
-import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
-import "mapbox-gl/dist/mapbox-gl.css";
 import * as mapbox from "mapbox-gl";
 import { AiFillEdit } from "react-icons/ai";
 import { FitBounds } from "react-mapbox-gl/lib/map";
+import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 const token = process.env.REACT_APP_MAPBOX_API;
 const Map = ReactMapboxGl({ accessToken: token ? token : "" });
 
@@ -128,30 +128,30 @@ export default function Maps() {
                 >
                   Submit
                 </div>
+                {(!edit && (
+                  <>
+                    <div className="absolute z-50 left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer mapboxgl-ctrl-top-left">
+                      <AiFillEdit
+                        onClick={onEdit}
+                        color={"#000"}
+                        size={20}
+                      ></AiFillEdit>
+                    </div>
+                    {polygon && (
+                      <GeoJSONLayer
+                        data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
+                        fillPaint={{
+                          "fill-color": "#ff9b01",
+                          "fill-opacity": 0.5,
+                          "fill-outline-color": "#ff9b01",
+                        }}
+                      />
+                    )}
+                  </>
+                )) || <></>}
               </>
             )) || <></>}
           </Map>
-          {(!edit && (
-            <>
-              <div className="absolute left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer z-10">
-                <AiFillEdit
-                  onClick={onEdit}
-                  color={"#000"}
-                  size={20}
-                ></AiFillEdit>
-              </div>
-              {polygon && (
-                <GeoJSONLayer
-                  data={polygon ? (({ id, ...o }) => o)(polygon) : undefined}
-                  fillPaint={{
-                    "fill-color": "#ff9b01",
-                    "fill-opacity": 0.5,
-                    "fill-outline-color": "#ff9b01",
-                  }}
-                />
-              )}
-            </>
-          )) || <></>}
         </div>
       </Suspense>
       <div className="flex flex-row justify-between items-center p-12">
