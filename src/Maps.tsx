@@ -131,7 +131,7 @@ export default function Maps() {
             </div>
           )) || (
             <>
-              <div className="absolute z-50 left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer mapboxgl-ctrl-top-left" style={{zIndex:100}}>
+              <div className="absolute z-50 left top p-1 rounded-md m-4 bg-white !hover:cursor-pointer mapboxgl-ctrl-top-left hover:focus-within:" style={{zIndex:100}}>
                 <AiFillEdit
                   onClick={onEdit}
                   color={"#000"}
