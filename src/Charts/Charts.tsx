@@ -166,7 +166,7 @@ export function Charts() {
   const width = 300
 
   return (
-  <div className="flex flex-row">
+  <div className="flex flex-row mb-32">
     <div className="w-1/3">
     <h2>Impact</h2>
       <VegaLite spec={impactSpec} data={impactData} height={height} width={width} />,
