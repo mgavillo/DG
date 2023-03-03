@@ -32,6 +32,7 @@ export function Timeline({user} : any) {
       console.log(data);
       const newData = Object.keys(data).map((key) => {
         return {
+          creator: data[key].creator,
           crop: data[key].crop,
           type: data[key].type,
           description: data[key].description,
