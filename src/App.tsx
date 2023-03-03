@@ -49,7 +49,7 @@ function App() {
         </div>
       </div>
       <Charts />
-      <Timeline />
+      <Timeline user={user}/>
       <Profile user={user}/>
     </div>
   );
