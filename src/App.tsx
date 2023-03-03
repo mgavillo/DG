@@ -5,11 +5,11 @@ import { Description } from "./Description";
 import { Impact } from "./Impact";
 import { useState } from "react";
 import { Profile } from "./Profile";
-
+import {FaUser} from "react-icons/fa"
 export const users = [
   { name: "Gaia", photo: "/gaia.png" },
   { name: "Matthew", photo: "/matthew.jpg" },
-  { name: "Cofie", photo: "/avatar2.jpg" },
+  { name: "Qais", photo: "/avatar2.jpg" },
 ];
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
                 className="rounded-xl transition-all shadow-md w-64 h-80 hover:cursor-pointer hover:shadow-lg hover:scale-110 flex flex-col items-center justify-around"
                 onClick={() => setUser(el.name)}
               >
-                <img src={el.photo} className="rounded-full w-40 h-40" />
+                {el.name == "Qais" ? <FaUser size={170} color={"#B3A1E3"}/> : <img src={el.photo} className="rounded-full w-40 h-40" />}
                 <p className="text-xl font-semibold">{el.name}</p>
               </div>
             );
@@ -39,7 +39,7 @@ function App() {
       <div className="flex flex-row items-start justify-between w-screen p-8 px-24 pt-24 mb-32">
         <div>
           <h1 className="pb-12 text-4xl w-full text-start font-black">
-            Asburry Farm
+          Roots and Culture Indoor Farm
           </h1>
           <Maps />
         </div>

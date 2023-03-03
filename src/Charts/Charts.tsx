@@ -168,7 +168,7 @@ export function Charts() {
   return (
   <div className="flex flex-row mb-32">
     <div className="w-1/3">
-    <h2>Impact</h2>
+    <h2>Environmental Benefit</h2>
       <VegaLite spec={impactSpec} data={impactData} height={height} width={width} />,
     </div>
     <div className="w-1/3">
@@ -176,7 +176,7 @@ export function Charts() {
       <VegaLite spec={yieldSpec} data={yieldData} height={height} width={width} />,
     </div>
     <div className="w-1/3">
-      <h2>Operating Costs</h2>
+      <h2>Total Cost</h2>
       <VegaLite spec={costSpec} data={costData} height={height} width={width} />,
     </div>
   </div>

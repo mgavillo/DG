@@ -85,22 +85,21 @@ export function Maps() {
         }}
         onDrag={() => setBounds(undefined)}
         onZoom={() => setBounds(undefined)}
-        onStyleLoad={(map) => {
-          map.addSource('mapbox-dem', {
-            type: "raster-dem",
-            url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-            tileSize: 512,
-            maxzoom: 14})
-            
-
-            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-            map.setZoom(14)
-            map.setPitch(80)
-            map.setBearing(41)
-            map.setCenter([-114.26608, 32.7213])
-                      // Do whatever you want with the map instance here like map.addLayer or map.addSource
-        }}
-
+        // center
+        // center={[37, -78]}
+        // onStyleLoad={(map) => {
+          // map.addSource('mapbox-dem', {
+          //   type: "raster-dem",
+          //   url: "mapbox://mapbox.mapbox-terrain-dem-v1",
+          //   tileSize: 512,
+          //   maxzoom: 14})
+          //   map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+          //   map.setZoom(14)
+          //   map.setPitch(80)
+          //   map.setBearing(41)
+          // map.setCenter([-114.26608, 32.7213])
+          // Do whatever you want with the map instance here like map.addLayer or map.addSource
+        // }}
       >
         {(edit && (
           <>
@@ -138,7 +137,6 @@ export function Maps() {
                 color={"#000"}
                 size={20}
               ></AiFillEdit>
-              
             </div>
             {/* <Layer {...polygonLayer}/> */}
             {/* <Source
