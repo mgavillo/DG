@@ -51,7 +51,7 @@ export function ShowEvent({ e, setShowSelf, setEditEvent, left}: any) {
     >
       {hovered && (
         <div className="flex flex-row [&>*]:ml-2 absolute m-4 top-0 right-0">
-          {/* <GrEdit className="hover:cursor-pointer" onClick={editEvent} /> */}
+          <GrEdit className="hover:cursor-pointer" onClick={editEvent} />
           <GrClose
             className="hover:cursor-pointer"
             onClick={() => setRemovePopUp(true)}
