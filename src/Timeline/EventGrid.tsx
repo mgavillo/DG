@@ -6,12 +6,14 @@ interface EventGridProps {
   fieldEvents: any[];
   date?: Date;
   setShowEvent: any;
+  setEditEvent:any
 }
 export function EventGrid({
   timeSelected,
   fieldEvents,
   date = new Date,
   setShowEvent,
+  setEditEvent
 }: EventGridProps) {
   return (
     <div
@@ -38,6 +40,7 @@ export function EventGrid({
                 timeSelected={timeSelected}
                 date={date}
                 setShowEvent={setShowEvent}
+                setEditEvent={setEditEvent}
               />
             );
           })}

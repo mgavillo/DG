@@ -64,8 +64,12 @@ export function Timeline() {
           setDate={setDate}
         />
         <div className="w-full flex flex-row justify-end pr-3 mb-2">
-          <div className="py-1 px-3 rounded-md border-2 border-neutral-800 hover:bg-neutral-800 hover:text-gray-50 hover:cursor-pointer">
-            <BsPlus size={25} onClick={() => setCreateEvent(true)} />
+          <div
+            className="py-1 px-3 flex flex-row rounded-md border-2 border-neutral-800 hover:bg-neutral-800 hover:text-gray-50 hover:cursor-pointer"
+            onClick={() => setCreateEvent(true)}
+          >
+            <BsPlus size={25} />
+            <div>Create event</div>
           </div>
         </div>
         <div className="relative w-full p-2 h-[42rem]">
@@ -83,12 +87,17 @@ export function Timeline() {
             fieldEvents={fieldEvents}
             date={date}
             setShowEvent={setShowEvent}
+            setEditEvent={setEditEvent}
           />
         </div>
       </div>
 
-      {createEvent && (
-        <NewEvent editEvent={editEvent} setEditEvent={setEditEvent} setCreateEvent={setCreateEvent} />
+      {(createEvent || editEvent) && (
+        <NewEvent
+          editEvent={editEvent}
+          setEditEvent={setEditEvent}
+          setCreateEvent={setCreateEvent}
+        />
       )}
     </div>
   );

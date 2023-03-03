@@ -7,6 +7,7 @@ interface TimelineEventProps {
   timeSelected: number;
   date: any;
   setShowEvent: any;
+  setEditEvent: any
 }
 
 export function TimelineEvent({
@@ -14,6 +15,7 @@ export function TimelineEvent({
   timeSelected,
   date,
   setShowEvent,
+  setEditEvent
 }: TimelineEventProps) {
   const [showEventDetails, setShowEventDetails] = useState<boolean>(false);
   const [hovered, setHovered] = useState(false);
@@ -63,7 +65,6 @@ export function TimelineEvent({
       (newEnd.getTime() - firstDate.getTime() + nbMsDay) / nbMsDay
     );
     if (timeSelected === 3 || timeSelected === 4){
-      console.log((new Date(date).getFullYear() - new Date(e.startDate).getFullYear()) * 12)
       start = new Date(e.startDate).getMonth() + 1 + (12 * (new Date(e.startDate).getFullYear() - new Date(date).getFullYear()))
       end = new Date(e.endDate).getMonth() + 2+ (12 * (new Date(e.endDate).getFullYear() - new Date(date).getFullYear()))
     }
@@ -106,7 +107,7 @@ export function TimelineEvent({
       }}
     >
       {showEventDetails && (
-        <ShowEvent e={e} setShowSelf={setShowEventDetails} />
+        <ShowEvent e={e} setShowSelf={setShowEventDetails} setEditEvent={setEditEvent} left={col.start < nCols / 2}/>
       )}
       <div
         className={`${
