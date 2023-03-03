@@ -16,7 +16,7 @@ import { EventGrid } from "./EventGrid";
 import { BsPlus } from "react-icons/bs";
 const firebaseApp = app;
 
-export function Timeline() {
+export function Timeline({user} : any) {
   const [timeSelected, setTimeSelected] = useState(0);
   const [date, setDate] = useState(new Date());
   const [fieldEvents, setFieldEvents] = useState<any>();
@@ -94,6 +94,7 @@ export function Timeline() {
 
       {(createEvent || editEvent) && (
         <NewEvent
+          user={user}
           editEvent={editEvent}
           setEditEvent={setEditEvent}
           setCreateEvent={setCreateEvent}

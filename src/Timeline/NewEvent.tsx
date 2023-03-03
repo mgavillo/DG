@@ -9,12 +9,14 @@ interface NewEventProps {
   editEvent: any | null;
   setEditEvent: any;
   setCreateEvent: any;
+  user:any
 }
 
 export function NewEvent({
   editEvent,
   setEditEvent,
   setCreateEvent,
+  user
 }: NewEventProps) {
   const cardRef = useRef<HTMLFormElement | null>(null);
   const [startDate, setStartDate] = useState(
@@ -63,6 +65,7 @@ export function NewEvent({
       startDate: startDate.getTime(),
       endDate: endDate.getTime(),
       description: description,
+      creator: user
     });
     setCreateEvent(null)
 

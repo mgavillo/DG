@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { nbMsDay, timeFrame } from "../utils";
 import { ShowEvent } from "./ShowEvent";
-
+import { practices } from "../ontology";
 interface TimelineEventProps {
   e: any;
   timeSelected: number;
@@ -114,7 +114,7 @@ export function TimelineEvent({
           nCols > 31 ? "text-base" : "text-3xl"
         } h-fit flex items-center justify-center p-px`}
       >
-        {e.type.split(" ")[0]}
+        {practices.filter(practice => practice.name == e.type)[0]?.symbol}
       </div>
     </div>
   );

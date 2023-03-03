@@ -4,7 +4,8 @@ import { BsCalendar } from "react-icons/bs";
 import "./EventCard.css";
 import { getDatabase, ref, remove } from "firebase/database";
 import { PopUp } from "../components";
-
+import { users } from "../App";
+import { practices } from "../ontology";
 export function ShowEvent({ e, setShowSelf, setEditEvent, left}: any) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [hovered, setHovered] = useState(false);
@@ -79,11 +80,13 @@ export function ShowEvent({ e, setShowSelf, setEditEvent, left}: any) {
         onClick={(e: React.MouseEvent) => handlePrevClick(e)}
       />
       <h1 className="text-2xl rounded-md font-bold">{e.crop ? e.crop : "Hemp"}</h1>
-      <h1 className="text-xl rounded-md">{e.type}</h1>
+      <h1 className="text-xl rounded-md">{`${practices.filter(p => p.name == e.type)[0].symbol} ${e.type}`}</h1>
       <h3>{e.amount ? 0 : e.amount} </h3>
       <p className="description">{e.description}</p>
       <div className="italic"> {`${new Date(e.startDate).toLocaleDateString()} ${new Date(e.startDate).toLocaleDateString() !== new Date(e.endDate).toLocaleDateString() ? "-"  + new Date(e.endDate).toLocaleDateString() : ""}`}</div>
-
+      <div>
+        <img className="w-10 h-10 rounded-full" src={e.creator ?  users.filter(el => el.name == e.creator)[0].photo : users[1].photo}/>
+      </div>
       {/* <div className="datesContainer">
         <div className="dateContainer">
           <p className="w-fit">Start date</p>
