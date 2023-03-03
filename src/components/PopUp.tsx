@@ -4,10 +4,10 @@ interface PopUpProps {
   setClose: any;
 }
 
-export function PopUp({ title, options }: PopUpProps) {
+export function PopUp({ title, options, setClose }: PopUpProps) {
 
   return (
-    <div className="fixed top-0 right-0 bottom-0 left-0 z-50 w-screen h-screen bg-[#000000CC] flex flex-col justify-center items-center">
+    <div className="fixed m-0 top-0 right-0 bottom-0 left-0 z-50 w-screen h-screen bg-[#000000CC] flex flex-col justify-center items-center">
       <div className="w-3/5 h-fit bg-white rounded-lg flex flex-col align-center">
         <h1 className="text-3xl mt-4">{title}</h1>
         <div className="flex flex-row [&>*]:m-2 m-4 justify-center">

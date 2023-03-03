@@ -5,7 +5,7 @@ import "./EventCard.css";
 import { getDatabase, ref, remove } from "firebase/database";
 import { PopUp } from "../components";
 
-export function ShowEvent({ e, setShowSelf, setEditEvent = null }: any) {
+export function ShowEvent({ e, setShowSelf, setEditEvent, left}: any) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [hovered, setHovered] = useState(false);
   const [removePopUp, setRemovePopUp] = useState<boolean>(false);
@@ -44,14 +44,14 @@ export function ShowEvent({ e, setShowSelf, setEditEvent = null }: any) {
 
   return (
     <div
-      className="cardContainer bg-amber-100 absolute hover:cursor-default top-10 z-50"
+      className={`cardContainer absolute hover:cursor-default top-10 z-50 ${left ? "left-0" : "right-0"} bg-neutral-50 border`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       ref={cardRef}
     >
       {hovered && (
         <div className="flex flex-row [&>*]:ml-2 absolute m-4 top-0 right-0">
-          {/* <GrEdit className="hover:cursor-pointer" onClick={editEvent} /> */}
+          <GrEdit className="hover:cursor-pointer" onClick={editEvent} />
           <GrClose
             className="hover:cursor-pointer"
             onClick={() => setRemovePopUp(true)}
@@ -80,8 +80,9 @@ export function ShowEvent({ e, setShowSelf, setEditEvent = null }: any) {
       />
       <h1 className="text-2xl rounded-md font-bold">{e.crop ? e.crop : "Hemp"}</h1>
       <h1 className="text-xl rounded-md">{e.type}</h1>
-      <div className="italic"> {`${new Date(e.startDate).toLocaleDateString()} ${new Date(e.startDate).toLocaleDateString() !== new Date(e.endDate).toLocaleDateString() ? "-"  + new Date(e.endDate).toLocaleDateString() : ""}`}</div>
+      <h3>{e.amount ? 0 : e.amount} </h3>
       <p className="description">{e.description}</p>
+      <div className="italic"> {`${new Date(e.startDate).toLocaleDateString()} ${new Date(e.startDate).toLocaleDateString() !== new Date(e.endDate).toLocaleDateString() ? "-"  + new Date(e.endDate).toLocaleDateString() : ""}`}</div>
 
       {/* <div className="datesContainer">
         <div className="dateContainer">

@@ -6,16 +6,18 @@ interface EventGridProps {
   fieldEvents: any[];
   date?: Date;
   setShowEvent: any;
+  setEditEvent:any
 }
 export function EventGrid({
   timeSelected,
   fieldEvents,
   date = new Date,
   setShowEvent,
+  setEditEvent
 }: EventGridProps) {
   return (
     <div
-      className="absolute w-full h-[39rem] pt-4 pb-4 overflow-scroll"
+      className="absolute w-full h-[39rem] pt-4 pb-4 overflow-clip"
       style={{ overflow: "scroll" }}
     >
       <div
@@ -38,6 +40,7 @@ export function EventGrid({
                 timeSelected={timeSelected}
                 date={date}
                 setShowEvent={setShowEvent}
+                setEditEvent={setEditEvent}
               />
             );
           })}

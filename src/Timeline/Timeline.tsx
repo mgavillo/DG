@@ -87,11 +87,12 @@ export function Timeline() {
             fieldEvents={fieldEvents}
             date={date}
             setShowEvent={setShowEvent}
+            setEditEvent={setEditEvent}
           />
         </div>
       </div>
 
-      {createEvent && (
+      {(createEvent || editEvent) && (
         <NewEvent
           editEvent={editEvent}
           setEditEvent={setEditEvent}

@@ -8,7 +8,7 @@
     }
     
     .description {
-        @apply w-full h-24 p-3
+        @apply w-full text-left p-2 resize-none
     }
     
     .datesContainer {

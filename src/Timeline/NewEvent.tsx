@@ -3,17 +3,7 @@ import "./EventCard.css";
 import { GrEdit, GrClose, GrPrevious } from "react-icons/gr";
 
 import React, { useState, useRef, useEffect } from "react";
-
-const types = [
-  "💊 Fertilizer",
-  "🪲 Pesticide",
-  "💀 Herbicide",
-  "💦 Irrigation",
-  "🌱 Seeding",
-  "✂️ Harvest",
-];
-
-const crops = ["Hemp", "Corn", "Wheat", "Cotton"];
+import { crops, practices } from "../ontology";
 
 interface NewEventProps {
   editEvent: any | null;
@@ -33,20 +23,25 @@ export function NewEvent({
   const [endDate, setEndDate] = useState(
     editEvent ? new Date(editEvent.endDate) : new Date()
   );
-  const [changedEndDate, setChangedEndDate] = useState(false);
+  const [changedEndDate, setChangedEndDate] = useState(
+    editEvent ? editEvent.startDate !== editEvent.endDate : false
+  );
   const [description, setDescription] = useState(
     editEvent ? editEvent.description : ""
   );
   const [selectedType, setSelectedType] = useState(
-    editEvent ? editEvent.type : types[0]
+    editEvent ? editEvent.type : practices[0].name
   );
+
+  const [amount, setAmount] = useState(0);
   const [selectedCrop, setSelectedCrop] = useState(
-    editEvent ? editEvent.type : crops[0]
+    editEvent ? editEvent.crop : crops[0]
   );
 
   const handleClickOutside = (event: MouseEvent) => {
     if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
       setCreateEvent(false);
+      setEditEvent(false);
     }
   };
 
@@ -69,21 +64,21 @@ export function NewEvent({
       endDate: endDate.getTime(),
       description: description,
     });
-    setCreateEvent(null)
-
+    setCreateEvent(null);
   };
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
     const db = getDatabase();
     update(ref(db, "fields/" + 0 + "/Events/" + editEvent.key), {
       type: selectedType,
+      amount: amount,
       startDate: startDate.getTime(),
       endDate: endDate.getTime(),
       description: description,
-      crop: selectedCrop
+      crop: selectedCrop,
     });
     setEditEvent(null);
-    setCreateEvent(null)
+    setCreateEvent(null);
   };
 
   const changeEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +91,12 @@ export function NewEvent({
     if (newDate.getTime() === roundedStart.getTime()) setChangedEndDate(false);
   };
 
+  const closeEdit = () => {
+    setEditEvent(null);
+    setCreateEvent(null);
+  };
+
+  console.log(selectedType);
   return (
     <div className="fixed top-0 right-0 bottom-0 left-0 z-50 w-screen h-screen bg-[#000000CC] flex flex-col justify-center items-center">
       <form
@@ -103,17 +104,22 @@ export function NewEvent({
         onSubmit={editEvent ? handleEdit : handleSubmit}
         className="cardContainer bg-slate-50"
       >
-        {editEvent && (
+        <div className="w-full flex flex-row items-center justify-start">
           <GrPrevious
-            className="absolute top-0 left-0 m-4 hover:cursor-pointer"
+            className="hover:cursor-pointer mr-4"
             color={"#000"}
-            onClick={() => setEditEvent(null)}
+            onClick={closeEdit}
           />
-        )}
+          <div className="font-bold text-xl">
+            {editEvent ? "Edit event" : "Create Event"}
+          </div>
+        </div>
         <select
           value={selectedCrop}
           onChange={(event) => setSelectedCrop(event.target.value)}
-          className={"text-xl rounded-md p-3"}
+          className={
+            "rounded-md p-2 border-transparent border-2 focus-within:border-amber500 focus:outline-none"
+          }
         >
           {crops.map((crop) => (
             <option key={crop} value={crop}>
@@ -121,20 +127,37 @@ export function NewEvent({
             </option>
           ))}
         </select>
-        <select
-          value={selectedType}
-          onChange={(event) => setSelectedType(event.target.value)}
-          className={"text-xl rounded-md p-3"}
-        >
-          {types.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+        <div className="flex flex-row justify-center items-center">
+          <select
+            value={selectedType}
+            onChange={(event) => setSelectedType(event.target.value)}
+            className={
+              "rounded-md p-2 border-transparent border-2 focus-within:border-neutral-300 focus:outline-none mr-2"
+            }
+          >
+            {practices.map((practice) => (
+              <option key={practice.name} value={practice.name}>
+                {`${practice.symbol} ${practice.name}`}
+              </option>
+            ))}
+          </select>
+          <input
+            className="w-32 p-2 rounded-md border-transparent border-2 focus-within:border-neutral-300 focus:outline-none"
+            type="number"
+            value={amount}
+            onChange={(event) => setAmount(parseInt(event?.target.value))}>
+
+            </input>
+          <span className="-ml-14 text-right w-6">
+            {
+              practices.find((practice) => practice.name === selectedType)
+                ?.units[0]
+            }
+          </span>
+        </div>
 
         <textarea
-          className="description"
+          className="description rounded-md border-transparent border-2 focus-within:border-neutral-300 focus:outline-none"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           placeholder="Description"
@@ -143,7 +166,7 @@ export function NewEvent({
           <div className="dateContainer">
             <p className="w-fit">Start date</p>
             <input
-              className="mr-2 w-full"
+              className="mr-2 p-2 w-full rounded-md border-transparent border-2 focus-within:border-neutral-300 focus:outline-none"
               type="date"
               value={startDate.toISOString().substr(0, 10)}
               onChange={(event) => setStartDate(new Date(event.target.value))}
@@ -154,18 +177,17 @@ export function NewEvent({
           >
             <p className="w-fit">End date</p>
             <input
-              className="w-full"
+              className="w-full p-2 rounded-md border-transparent border-2 focus-within:border-neutral-300 focus:outline-none"
               type="date"
               value={endDate.toISOString().substr(0, 10)}
               onChange={(event) => changeEndDate(event)}
-              // onFocus={() => setChangedEndDate(true)}
               min={startDate.toISOString().split("T")[0]}
             />
           </div>
         </div>
         <div className="w-full flex items-center justify-center">
-          <button type="submit" className="primary-button">
-            Submit
+          <button type="submit" className="primary-button text-xl">
+            {editEvent ? "Save" : "Submit"}
           </button>
         </div>
       </form>
